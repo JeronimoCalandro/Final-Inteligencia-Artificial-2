@@ -13,11 +13,13 @@ public enum SeekerSoldierStates
 
 public class SeekerSoldier : Agent<SeekerSoldierStates>
 {
+    public GameObject flag;
     public Vector3 targetPosition;
 
     public override void Start()
     {
         base.Start();
+        targetPosition = transform.position;
 
         fsm.AddState(SeekerSoldierStates.Follow, new SeekerSoldierFollowState(fsm, this));
         fsm.AddState(SeekerSoldierStates.Search, new SeekerSoldierSearchState(fsm, this));
@@ -79,7 +81,7 @@ public class SeekerSoldier : Agent<SeekerSoldierStates>
 
     public void SetNewRandomPosition()
     {
-        targetPosition = new Vector3(Random.Range(-22, 22), 0, Random.Range(-10, 10));
+        targetPosition = new Vector3(Random.Range(-20, 20), 0, Random.Range(-10, 10));
 
         if (InLineOfSight(transform.position, targetPosition))
             return;

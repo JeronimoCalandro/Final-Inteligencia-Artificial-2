@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  life: 5
+  life: 3
   maxSpeed: 2
   maxForce: 0.01
   viewRadius: 1.5

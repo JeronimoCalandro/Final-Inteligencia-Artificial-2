@@ -22,7 +22,7 @@ public class LeaderMovementState : IState
         _leader.Movement();
 
         if (Vector3.Distance(_leader.transform.position, _leader.targetPosition) < 0.1f)
-            _leader.SetNewRandomPosition();
+            _leader.SetNewRandomPosition(Vector3.zero);
 
         foreach (var npc in LevelManager.instance.allNpc)
         {

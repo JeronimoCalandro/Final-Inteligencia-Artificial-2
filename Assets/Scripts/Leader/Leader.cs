@@ -35,8 +35,6 @@ public class Leader : Entity
         fsm.AddState(LeaderStates.Dead, new LeaderDeadState(fsm, this));
 
         fsm.ChangeState(LeaderStates.Move);
-
-        //SetNewPosition();
     }
 
     public override void Update()
@@ -48,17 +46,17 @@ public class Leader : Entity
     public void Movement()
     {
         if (Input.GetMouseButtonUp(0) && team == Team.Red)
-            SetNewRandomPosition();
+            SetNewRandomPosition(Vector3.zero);
         else if (Input.GetMouseButtonUp(1) && team == Team.Blue)
-            SetNewRandomPosition();
+            SetNewRandomPosition(Vector3.zero);
 
-        if (canHeal)
+        /*if (canHeal)
         {
             if (Input.GetKeyDown(KeyCode.A) && team == Team.Red)
                 Heal();
             else if (Input.GetKeyDown(KeyCode.D) && team == Team.Blue)
                 Heal();
-        }
+        }*/
         
 
         if (pathToFollow.Count > 0 || !InLineOfSight(transform.position, targetPosition))
@@ -75,11 +73,11 @@ public class Leader : Entity
         AddForce(AvoidObstacles() * 1.3f);
     }
 
-    public void SetNewRandomPosition()
+    public void SetNewRandomPosition(Vector3 position)
     {
-        /*targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        targetPosition = new Vector3(targetPosition.x, 0, targetPosition.z);*/
-        targetPosition = new Vector3(Random.Range(-22, 22), 0, Random.Range(-10, 10));
+        if (position == Vector3.zero)
+            targetPosition = new Vector3(Random.Range(-22, 22), 0, Random.Range(-10, 10));
+        else targetPosition = position;
 
         if (InLineOfSight(transform.position, targetPosition))
             return;
@@ -94,7 +92,7 @@ public class Leader : Entity
                                                  .OrderBy(x => Vector3.Distance(x.transform.position, targetPosition))
                                                  .First();
 
-        if (startingNode == null || goalNode == null) SetNewRandomPosition();
+        if (startingNode == null || goalNode == null) SetNewRandomPosition(Vector3.zero);
 
         SetPath(pathFinding.AStar(startingNode, goalNode));
     }
