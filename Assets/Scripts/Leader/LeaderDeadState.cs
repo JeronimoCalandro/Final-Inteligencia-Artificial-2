@@ -18,7 +18,6 @@ public class LeaderDeadState : IState
         _leader.GetComponentInChildren<BoxCollider>().enabled = false;
         _leader.isDead = true;
         LevelManager.instance.RemoveBoid(_leader);
-        LevelManager.instance.RefreshTeamText(_leader.team);
     }
 
     public void OnUpdate()

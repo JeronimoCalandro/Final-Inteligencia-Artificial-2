@@ -18,7 +18,6 @@ public class HealerSoldierDeadState : IState
         _npc.GetComponentInChildren<BoxCollider>().enabled = false;
         _npc.isDead = true;
         LevelManager.instance.RemoveBoid(_npc);
-        Debug.Log("MURIO EL MEDICO");
     }
 
     public void OnUpdate()

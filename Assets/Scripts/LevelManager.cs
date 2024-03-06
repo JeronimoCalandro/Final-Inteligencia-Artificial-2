@@ -8,8 +8,8 @@ using System;
 
 public enum Team
 {
-    Red,
-    Blue,
+    Rojo,
+    Azul,
 }
 public class LevelManager : MonoBehaviour
 {
@@ -30,9 +30,13 @@ public class LevelManager : MonoBehaviour
 
     public TMP_Text redText;
     public TMP_Text blueText;
+    public TMP_Text timeText;
 
     int redSoldiersNumber = 7;
     int blueSoldiersNumber = 7;
+    int gameTime = 200;
+
+    bool isPlaying = false;
 
     private void Awake()
     {
@@ -47,6 +51,8 @@ public class LevelManager : MonoBehaviour
             coin.SetActive(true);
         }
 
+        isPlaying = true;
+        StartCoroutine(RefresGameTime());
         //boundHeight = boundHeight - 9.5f;
     }
 
@@ -93,17 +99,17 @@ public class LevelManager : MonoBehaviour
 
     public void RefreshTeamText(Team team)
     {
-        if(team == Team.Red)
+        if(team == Team.Rojo)
         {
             redSoldiersNumber--;
             redText.text = redSoldiersNumber + " / 7";
-            if (redSoldiersNumber <= 0) FinishGame(Team.Blue);
+            if (redSoldiersNumber <= 0) FinishGame(Team.Azul);
         }
-        else if(team == Team.Blue)
+        else if(team == Team.Azul)
         {
             blueSoldiersNumber--;
-            blueText.text = redSoldiersNumber + " / 7";
-            if (blueSoldiersNumber <= 0) FinishGame(Team.Red);
+            blueText.text = blueSoldiersNumber + " / 7";
+            if (blueSoldiersNumber <= 0) FinishGame(Team.Rojo);
         }
     }
 
@@ -111,7 +117,22 @@ public class LevelManager : MonoBehaviour
     {
         finishText.enabled = true;
         finishText.text = ("Gano el equipo " + team);
+        isPlaying = false;
         Time.timeScale = 0;
+    }
+
+    IEnumerator RefresGameTime()
+    {
+        yield return new WaitForSeconds(1);
+        gameTime--;
+        timeText.text = gameTime.ToString();
+
+        if (gameTime <= 0)
+        {
+            if (redSoldiersNumber > blueSoldiersNumber) FinishGame(Team.Rojo);
+            else if (blueSoldiersNumber > redSoldiersNumber) FinishGame(Team.Azul);
+        }
+        else if(isPlaying) StartCoroutine(RefresGameTime());
     }
 
     void OnDrawGizmos()                // Representacion grafica de los limites para el wraparound

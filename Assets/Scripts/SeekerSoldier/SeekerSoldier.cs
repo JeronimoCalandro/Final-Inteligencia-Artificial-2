@@ -83,6 +83,9 @@ public class SeekerSoldier : Agent<SeekerSoldierStates>
     {
         targetPosition = new Vector3(Random.Range(-20, 20), 0, Random.Range(-10, 10));
 
+        if (!LevelManager.instance.allNodes.Any(x => InLineOfSight(x.transform.position, targetPosition)))
+            SetNewRandomPosition();
+
         if (InLineOfSight(transform.position, targetPosition))
             return;
 
@@ -96,7 +99,7 @@ public class SeekerSoldier : Agent<SeekerSoldierStates>
                                                  .OrderBy(x => Vector3.Distance(x.transform.position, targetPosition))
                                                  .First();
 
-        if (startingNode == null || goalNode == null) SetNewRandomPosition();
+        //if (startingNode == null || goalNode == null) SetNewRandomPosition();
 
         SetPath(pathFinding.AStar(startingNode, goalNode));
     }

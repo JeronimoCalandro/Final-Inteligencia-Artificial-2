@@ -14,6 +14,7 @@ public class SeekerSoldierFollowState : IState
     public void OnStart()
     {
         _npc.text.text = "";
+        _npc.maxSpeed = 2.5f;
     }
 
     public void OnUpdate()

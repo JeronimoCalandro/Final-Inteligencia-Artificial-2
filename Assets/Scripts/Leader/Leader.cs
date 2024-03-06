@@ -45,9 +45,9 @@ public class Leader : Entity
 
     public void Movement()
     {
-        if (Input.GetMouseButtonUp(0) && team == Team.Red)
+        if (Input.GetMouseButtonUp(0) && team == Team.Rojo)
             SetNewRandomPosition(Vector3.zero);
-        else if (Input.GetMouseButtonUp(1) && team == Team.Blue)
+        else if (Input.GetMouseButtonUp(1) && team == Team.Azul)
             SetNewRandomPosition(Vector3.zero);
 
         /*if (canHeal)
@@ -79,6 +79,9 @@ public class Leader : Entity
             targetPosition = new Vector3(Random.Range(-22, 22), 0, Random.Range(-10, 10));
         else targetPosition = position;
 
+        if (!LevelManager.instance.allNodes.Any(x => InLineOfSight(x.transform.position, targetPosition)))
+            SetNewRandomPosition(Vector3.zero);
+
         if (InLineOfSight(transform.position, targetPosition))
             return;
          
@@ -92,7 +95,7 @@ public class Leader : Entity
                                                  .OrderBy(x => Vector3.Distance(x.transform.position, targetPosition))
                                                  .First();
 
-        if (startingNode == null || goalNode == null) SetNewRandomPosition(Vector3.zero);
+        //if (startingNode == null || goalNode == null) SetNewRandomPosition(Vector3.zero);
 
         SetPath(pathFinding.AStar(startingNode, goalNode));
     }

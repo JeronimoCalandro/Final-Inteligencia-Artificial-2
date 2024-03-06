@@ -635,8 +635,8 @@ MonoBehaviour:
   life: 5
   maxSpeed: 2
   maxForce: 0.01
-  viewRadius: 1.5
-  viewAngle: 100
+  viewRadius: 2
+  viewAngle: 150
   lifeBar: {fileID: 2884548537527089100}
   text: {fileID: 5622707237147999983}
   bodyTransform: {fileID: 6276780904574011301}

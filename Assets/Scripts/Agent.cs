@@ -79,7 +79,7 @@ public class Agent<T> : Entity
     public void Flocking()
     {
         //AddForce(AvoidObstacles() * 1.3f);
-        if(WallSeparation() != Vector3.zero)
+        /*if(WallSeparation() != Vector3.zero)
         {
             separationWeight = 0;
             cohesionWeight = 0;
@@ -90,8 +90,8 @@ public class Agent<T> : Entity
             separationWeight = originalSeparationWeight;
             cohesionWeight = originalCohesionWeight;
             alignmentWeight = originalAlignmentWeight;
-        }
-        AddForce(WallSeparation() * 10);
+        }*/
+        //AddForce(WallSeparation() * 10);
         AddForce(Separation() * separationWeight);
         AddForce(Cohesion() * cohesionWeight);
         AddForce(Alignment() * alignmentWeight);

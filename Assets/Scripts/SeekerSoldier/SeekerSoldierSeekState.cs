@@ -38,6 +38,6 @@ public class SeekerSoldierSeekState : IState
 
     public void OnExit()
     {
-        _npc.velocity = Vector3.zero;
+        //_npc.velocity = Vector3.zero;
     }
 }

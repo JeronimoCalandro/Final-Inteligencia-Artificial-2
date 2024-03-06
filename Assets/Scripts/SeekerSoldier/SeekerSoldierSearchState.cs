@@ -15,6 +15,7 @@ public class SeekerSoldierSearchState : IState
     {
         _npc.CalculatePathFindingToLeader();
         _npc.text.text = "?";
+        _npc.maxSpeed = 5f;
     }
 
     public void OnUpdate()
