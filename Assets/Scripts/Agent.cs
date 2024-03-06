@@ -59,10 +59,7 @@ public class Agent<T> : Entity
 
         goalNode = LevelManager.instance.allNodes.Select(x => (Node)x).Where(x => x != null).Where(x => InLineOfSight(x.transform.position, leaderTransform.position) == true).OrderBy(x => Vector3.Distance(x.transform.position, leaderTransform.position)).FirstOrDefault();
 
-        /*if (startingNode == null || goalNode == null)
-            CalculatePathFindingToLeader();
-        else*/
-            SetPath(pathFinding.AStar(startingNode, goalNode));
+        SetPath(pathFinding.AStar(startingNode, goalNode));
     }
 
     public void CalculateRandomPathFinding()

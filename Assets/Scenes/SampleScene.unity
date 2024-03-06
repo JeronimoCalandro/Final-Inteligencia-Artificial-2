@@ -629,7 +629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Curacion en aerea = "A"
+  m_text: 7 / 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1633,6 +1633,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1708060757}
     m_Modifications:
     - target: {fileID: 5550116522421584542, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550116522421584542, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: maxForce
       value: 1
       objectReference: {fileID: 0}
@@ -1643,7 +1647,7 @@ PrefabInstance:
     - target: {fileID: 5550116522421584542, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: leaderTransform
       value: 
-      objectReference: {fileID: 1013916736}
+      objectReference: {fileID: 1078533820}
     - target: {fileID: 6223451668764990625, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1658,15 +1662,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6276780905186545286, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.18
+      value: 44.84
       objectReference: {fileID: 0}
     - target: {fileID: 6276780905186545286, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6276780905186545286, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.31
+      value: 25.7
       objectReference: {fileID: 0}
     - target: {fileID: 6276780905186545286, guid: f812c0da107d08e4aa10e7ec4dec1e61, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1952,6 +1956,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   finishText: {fileID: 1796799779}
+  redText: {fileID: 39832336}
+  blueText: {fileID: 1664187709}
 --- !u!4 &222503809
 Transform:
   m_ObjectHideFlags: 0
@@ -6457,7 +6463,7 @@ Transform:
   m_GameObject: {fileID: 970396068}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 0.5, z: 2}
+  m_LocalScale: {x: 10, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 627561067}
@@ -12518,7 +12524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Curacion en aerea = "D"
+  m_text: 7 / 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14472,7 +14478,7 @@ GameObject:
   - component: {fileID: 2041121346}
   - component: {fileID: 2041121345}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: Game Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

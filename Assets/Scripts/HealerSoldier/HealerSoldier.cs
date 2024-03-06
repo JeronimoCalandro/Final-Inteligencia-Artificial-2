@@ -9,7 +9,6 @@ public enum HealerSoldierStates
     Lost,
     Search,
     Heal,
-    Escape,
     Dead,
 }
 
@@ -28,6 +27,7 @@ public class HealerSoldier : Agent<HealerSoldierStates>
         fsm.AddState(HealerSoldierStates.Lost, new HealerSoldierLostState(fsm, this));
         fsm.AddState(HealerSoldierStates.Heal, new HealerSoldierHealState(fsm, this));
         fsm.AddState(HealerSoldierStates.Search, new HealerSoldierSearchState(fsm, this));
+        fsm.AddState(HealerSoldierStates.Dead, new HealerSoldierDeadState(fsm, this));
 
         fsm.ChangeState(HealerSoldierStates.Follow);
     }
@@ -102,7 +102,5 @@ public class HealerSoldier : Agent<HealerSoldierStates>
         base.ReceiveDamage(damage);
         if (life <= 0)
             fsm.ChangeState(HealerSoldierStates.Dead);
-        else if (life == 1)
-            fsm.ChangeState(HealerSoldierStates.Escape);
     }
 }

@@ -78,6 +78,7 @@ public class HealerSoldierHealState : IState
         _npc.agentToHeal = LevelManager.instance.allNpc.Where(x => x != null)
             .Where(x => x.team == _npc.team)
             .Where(x => x.life < x.maxLife)
+            .Where(x => x != _npc)
             .Where(x => !x.isDead)
             .OrderBy(x => x.life)
             .FirstOrDefault();

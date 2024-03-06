@@ -27,6 +27,13 @@ public class LevelManager : MonoBehaviour
     public LayerMask wallMask;
 
     public TMP_Text finishText;
+
+    public TMP_Text redText;
+    public TMP_Text blueText;
+
+    int redSoldiersNumber = 7;
+    int blueSoldiersNumber = 7;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -61,6 +68,8 @@ public class LevelManager : MonoBehaviour
 
     public void RemoveBoid(Entity entity)
     {
+        RefreshTeamText(entity.team);
+
         if (allNpc.Contains(entity))
             allNpc.Remove(entity);
 
@@ -80,6 +89,22 @@ public class LevelManager : MonoBehaviour
         if (allCoins.Contains(coin)) allCoins.Remove(coin);
 
         coin.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    public void RefreshTeamText(Team team)
+    {
+        if(team == Team.Red)
+        {
+            redSoldiersNumber--;
+            redText.text = redSoldiersNumber + " / 7";
+            if (redSoldiersNumber <= 0) FinishGame(Team.Blue);
+        }
+        else if(team == Team.Blue)
+        {
+            blueSoldiersNumber--;
+            blueText.text = redSoldiersNumber + " / 7";
+            if (blueSoldiersNumber <= 0) FinishGame(Team.Red);
+        }
     }
 
     public void FinishGame(Team team)
