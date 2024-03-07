@@ -55,7 +55,6 @@ public class Entity : MonoBehaviour, IGridEntity
     public virtual void Start()
     {
         maxLife = life;
-
         LevelManager.instance.AddBoid(this);
         AddForce(CalculateSteering(bodyTransform.forward));
     }

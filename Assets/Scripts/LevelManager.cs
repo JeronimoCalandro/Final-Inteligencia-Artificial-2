@@ -24,6 +24,9 @@ public class LevelManager : MonoBehaviour
 
     public List<GameObject> allCoins = new List<GameObject>();
 
+    public List<Transform> redSpawns = new List<Transform>();
+    public List<Transform> blueSpawns = new List<Transform>();
+
     public LayerMask wallMask;
 
     public TMP_Text finishText;
@@ -38,12 +41,14 @@ public class LevelManager : MonoBehaviour
 
     bool isPlaying = false;
 
+    System.Random rnd;
+
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        var rnd = new System.Random();
+        rnd = new System.Random();
         var coinsInGame = allCoins.OrderBy(x => rnd.Next()).Take(allCoins.Count / 2);   //IA2-LINQ
         allCoins = coinsInGame.ToList();
         foreach (var coin in allCoins)
@@ -56,6 +61,29 @@ public class LevelManager : MonoBehaviour
         //boundHeight = boundHeight - 9.5f;
     }
 
+    private void Start()
+    {
+        var redNpcs = allNpc.Where(x => x.team == Team.Rojo).ToList();
+        var blueNpcs = allNpc.Where(x => x.team == Team.Azul).ToList();
+        var redRandomSpawns = redSpawns.OrderBy(x => rnd.Next()).ToList();
+        var blueRandomSpawns = blueSpawns.OrderBy(x => rnd.Next()).ToList();
+
+        var newNpcs = redNpcs.Concat(blueNpcs);
+        var newSpawns = redRandomSpawns.Concat(blueRandomSpawns);
+
+        var npcsSpawns = newNpcs.Zip(newSpawns, (npc, spawn) => npc.gameObject.name + " spawneo en el Spawn: " + spawn.gameObject.name);
+
+        for (int i = 0; i < redNpcs.Count; i++)
+        {
+            redNpcs[i].transform.position = redRandomSpawns[i].position;
+            blueNpcs[i].transform.position = blueRandomSpawns[i].position;
+        }
+
+        foreach (var npc in npcsSpawns)
+        {
+            Debug.Log(npc);
+        }
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -115,6 +143,8 @@ public class LevelManager : MonoBehaviour
 
     public void FinishGame(Team team)
     {
+        //var resultado = allNpc.Zip(allNodes, (npc, node) => npc.name + node.name);
+
         finishText.enabled = true;
         finishText.text = ("Gano el equipo " + team);
         isPlaying = false;
