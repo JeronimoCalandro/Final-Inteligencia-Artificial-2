@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
     public LayerMask wallMask;
 
     public TMP_Text finishText;
+    public TMP_Text damageText;
 
     public TMP_Text redText;
     public TMP_Text blueText;
@@ -40,6 +41,9 @@ public class LevelManager : MonoBehaviour
     int gameTime = 200;
 
     bool isPlaying = false;
+
+    List<int> redTeamDamageReceived = new List<int>();
+    List<int> blueTeamDamageReceived = new List<int>();
 
     System.Random rnd;
 
@@ -68,10 +72,13 @@ public class LevelManager : MonoBehaviour
         var redRandomSpawns = redSpawns.OrderBy(x => rnd.Next()).ToList();
         var blueRandomSpawns = blueSpawns.OrderBy(x => rnd.Next()).ToList();
 
-        var newNpcs = redNpcs.Concat(blueNpcs);
+        var newNpcs = redNpcs.Concat(blueNpcs);             //IA2-LINQ
+
         var newSpawns = redRandomSpawns.Concat(blueRandomSpawns);
 
-        var npcsSpawns = newNpcs.Zip(newSpawns, (npc, spawn) => npc.gameObject.name + " spawneo en el Spawn: " + spawn.gameObject.name);
+        var npcsSpawns = newNpcs
+            .Zip(newSpawns, (npc, spawn) => npc.gameObject.name + " spawneo en el Spawn: " + spawn.gameObject.name);   //IA2-LINQ
+
 
         for (int i = 0; i < redNpcs.Count; i++)
         {
@@ -109,6 +116,12 @@ public class LevelManager : MonoBehaviour
 
         if (allNpc.All(x => x.team != entity.team)) FinishGame(allNpc[0].team);   //IA2-LINQ
 
+        var totalDamageReceived = entity.damageReceived.Aggregate(0, (acum, num) => acum + num); //IA2-LINQ
+
+        if (entity.team == Team.Rojo) redTeamDamageReceived.Add(totalDamageReceived);
+        else blueTeamDamageReceived.Add(totalDamageReceived);
+
+        Debug.Log(entity.gameObject.name + " recibio " + totalDamageReceived + " puntos de daño en total.");
     }
 
     public void AddNode(Node node)
@@ -143,10 +156,15 @@ public class LevelManager : MonoBehaviour
 
     public void FinishGame(Team team)
     {
-        //var resultado = allNpc.Zip(allNodes, (npc, node) => npc.name + node.name);
-
         finishText.enabled = true;
         finishText.text = ("Gano el equipo " + team);
+
+        var totalTeamDamage = 0;
+        if (team == Team.Rojo) totalTeamDamage = blueTeamDamageReceived.Aggregate(0, (acum, num) => acum + num); //IA2-LINQ
+        else totalTeamDamage = redTeamDamageReceived.Aggregate(0, (acum, num) => acum + num); //IA2-LINQ
+        damageText.enabled = true;
+        damageText.text = "Haciendo un total de " + totalTeamDamage + " puntos de daño";
+
         isPlaying = false;
         Time.timeScale = 0;
     }

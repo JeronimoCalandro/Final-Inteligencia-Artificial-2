@@ -39,6 +39,7 @@ public class Entity : MonoBehaviour, IGridEntity
     public Vector3 velocity;
 
     public int maxLife;
+    public List<int> damageReceived = new List<int>();
 
     GameObject[] agents;
 
@@ -217,6 +218,7 @@ public class Entity : MonoBehaviour, IGridEntity
     {
         life -= damage;
         lifeBar.fillAmount = (float)life / (float)maxLife;
+        damageReceived.Add(damage);
     }
 
     public virtual void ReceiveHealing(int healing)
@@ -247,13 +249,8 @@ public class Entity : MonoBehaviour, IGridEntity
             .OrderByDescending(x => Vector3.Distance(x.transform.position, transform.position))
             .First();
 
-        /*if (startingNode == null || goalNode == null)
-            CalculatePathFindingToEscape();
-        else
-        {*/
             goalNode.used = true;
             SetPath(pathFinding.AStar(startingNode, goalNode));
-        //}
     }
 
     public bool ReturnToCombat()
@@ -262,36 +259,10 @@ public class Entity : MonoBehaviour, IGridEntity
         else return false;
     }
 
-    /*public Vector3 Persuit(Transform agentToPersuit)
-    {
-        //Esto es la base de FuturePos, la manera correcta es la que mejor se aplique a su proyecto
-        var agentToPersuitVelocity = agentToPersuit.gameObject.GetComponent<Entity>().velocity;
-
-        Vector3 futurePos = agentToPersuit.position + agentToPersuitVelocity * Time.deltaTime;//* (agent.transform.position - transform.position).magnitude;
-        Vector3 desired = (futurePos - transform.position);
-        desired.Normalize();
-        desired *= 1;
-
-        Vector3 steering = desired - velocity;
-        steering = Vector3.ClampMagnitude(steering, maxForce);
-
-        Debug.Log("PERSUIT");
-        return steering;
-    }*/
-
     public void Persuit()
     {
         if(enemy != null)
         {
-            /*if (Vector3.Distance(transform.position, enemy.transform.position) > 1)
-            {
-                AddForce(enemy.transform.position);
-
-                velocity.y = 0;
-                transform.position += velocity * Time.deltaTime;
-                if (velocity != Vector3.zero)
-                    bodyTransform.forward = velocity;
-            }*/
             if (Vector3.Distance(transform.position, enemy.transform.position) > 1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, enemy.transform.position, 1 * Time.deltaTime);
