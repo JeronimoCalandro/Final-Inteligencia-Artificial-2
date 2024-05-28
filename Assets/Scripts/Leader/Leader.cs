@@ -105,8 +105,7 @@ public class Leader : Entity
         base.ReceiveDamage(damage);
         if (life <= 0)
             fsm.ChangeState(LeaderStates.Dead);
-        /*else if (life == 1)
-            fsm.ChangeState(LeaderStates.Escape);*/
+        else if (life < maxLife / 2 && canHeal) Heal();
     }
 
     public void Heal()  //IA2-LINQ
@@ -126,6 +125,8 @@ public class Leader : Entity
         }
         canHeal = false;
         UIHeal.SetActive(false);
+
+        Debug.Log("CURACION EN AEREA");
     }
 
     public void Escape()

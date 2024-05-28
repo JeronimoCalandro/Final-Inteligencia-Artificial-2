@@ -38,29 +38,7 @@ public class HealerSoldierHealState : IState
         {
             if (_npc.agentToHeal.life < _npc.agentToHeal.maxLife)
             {
-               /* var agentNear = _npc.squareQuery.Query()
-                                                .Select(x => (Entity)x)
-                                                .Where(x => x != null)
-                                                .Where(x => x == _npc.agentToHeal)
-                                                //.OrderBy(x => Vector3.Distance(x.transform.position, _npc.transform.position))
-                                                .Take(1);
 
-                Debug.Log("INTENTO CURAR");
-                foreach (var item in agentNear)
-                {
-                    _npc.agentToHeal.ReceiveHealing(healing);
-                    Debug.Log("CURO");
-                }
-                //Debug.Log(_npc.agentToHeal.transform.position);
-
-                /*var aux = _npc.squareQuery.Query()
-                                                .Select(x => (Entity)x)
-                                                .Where(x => x != null)
-                                                .OrderBy(x => Vector3.Distance(x.transform.position, _npc.transform.position))
-                                                .First();
-
-                if(aux != null)
-                    Debug.Log(aux.transform.position);*/
                 if(Vector3.Distance(_npc.transform.position, _npc.agentToHeal.transform.position) < 2)
                     _npc.agentToHeal.ReceiveHealing(healing);
             }
